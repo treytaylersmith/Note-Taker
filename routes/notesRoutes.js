@@ -2,24 +2,24 @@ const notes = require('express').Router();
 const { v4: uuidv4 } = require('uuid');
 const { readAndAppend, readFromFile, writeToFile } = require('../helpers/fsUtils');
 
-notes.get('/', (req,res) =>{
+notes.get('/', (req,res) =>
     readFromFile('./db/db.json').then((data) => res.json(JSON.parse(data)))
-});
+);
 
 notes.post('/', (req,res) =>{
-    const {title, content } = req.body;
+    const {title, text } = req.body;
 
-    if(title && content){
+    if(title && text){
         const newNote = {
             title,
-            content,
-            note_id: uuidv4(),
+            text,
+            id: uuidv4(),
         };
 
-        readAndAppend(content, './db/db.json');
+        readAndAppend(newNote, './db/db.json');
 
         const response = {
-            satus: 'success',
+            status: 'success',
             body: newNote,
         };
 
@@ -32,12 +32,12 @@ notes.post('/', (req,res) =>{
 
 });
 
-notes.delete('/:note_id', (req,res) =>{
-    const noteId = req.params.note_id;
+notes.delete('/:id', (req,res) =>{
+    const noteId = req.params.id;
     readFromFile('./db/db.json')
-        .then((data) => json.parse(data))
+        .then((data) => JSON.parse(data))
         .then((json) => {
-            const result =  json.filter((note) => note.note_id !== noteId);
+            const result =  json.filter((note) => note.id !== noteId);
 
             writeToFile('./db/db.json', result);
 
