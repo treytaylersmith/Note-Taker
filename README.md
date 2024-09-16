@@ -15,10 +15,13 @@ A program that allows you to take notes, keeping a log of previous notes
 - [Test](#test)
 - [Questions](#questions)
 
+## Preview
+[Click here to visit site preview](https://note-taker-m1nb.onrender.com) 
+
 
 ## Installation
 
-Download package and install through npm
+Download package and install through npm.
 
 ## License
 
